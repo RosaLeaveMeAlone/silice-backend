@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  mongodb:
+    container_name: silice-mongodb-prod
+    image: mongo:7.0
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: recibos_db
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    container_name: silice-backend-prod
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    depends_on:
+      - mongodb
+      - rabbitmq
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - PORT=${PORT}
+      - MONGODB_URI=${MONGODB_URI}
+      - RABBITMQ_URL=${RABBITMQ_URL}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: silice-rabbitmq-prod
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+volumes:
+  mongodb_data:
+  rabbitmq_data:
