@@ -2,6 +2,11 @@
 
 API REST para gestión de recibos con NestJS, MongoDB y RabbitMQ.
 
+## Requisitos
+
+- Node.js v22
+- Docker y Docker Compose
+
 ## Stack
 
 - NestJS
@@ -10,6 +15,18 @@ API REST para gestión de recibos con NestJS, MongoDB y RabbitMQ.
 - JWT Authentication
 - Swagger
 - Docker
+
+## Variables de Entorno
+
+Crear un archivo `.env` basado en `.env.template` con las siguientes variables:
+
+```
+PORT=3000
+MONGODB_URI=mongodb://mongodb:27017/recibos_db
+RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
+JWT_SECRET=your-super-secret-key-change-this-in-production
+JWT_EXPIRES_IN=1d
+```
 
 ## Dev
 
