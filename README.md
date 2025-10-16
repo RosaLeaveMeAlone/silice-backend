@@ -23,6 +23,8 @@ La API estará disponible en `http://localhost:3000`
 
 Swagger disponible en `http://localhost:3000/api/docs`
 
+RabbitMQ Management disponible en `http://localhost:15672` (guest/guest)
+
 ## Prod
 
 1. Clonar el repositorio
